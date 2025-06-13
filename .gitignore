@@ -1,0 +1,38 @@
+# .NET / Visual Studio
+bin/
+obj/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+TestResults/
+*.ncrunch*
+*.localhistory/
+.vscode/
+_Dependencies/
+_ReSharper.*
+*.DotSettings.user
+
+# Archivos sensibles y de configuración local
+appsettings.Development.json
+appsettings.*.local.json
+secrets.json
+
+# Paquetes NuGet
+*.nupkg
+*.snupkg
+
+# Archivos generados
+*.dbmdl
+*.bak
+*.mdf
+*.ldf
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*~
