@@ -16,4 +16,14 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.1.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Stock.Models\Stock.Models.csproj" />
+    <ProjectReference Include="..\Stock.Services\Stock.Services.csproj" />
+  </ItemGroup>
+
 </Project>
