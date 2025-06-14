@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stock.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace Stock.Services.Repositories
 {
     public interface ICategoriaRepository
     {
+        public Task<List<Categoria>> GetCategorias();
     }
 }
