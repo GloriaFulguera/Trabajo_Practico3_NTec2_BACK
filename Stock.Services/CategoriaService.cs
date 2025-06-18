@@ -23,16 +23,28 @@ namespace Stock.Services
         }
         public async Task<bool> CreateCategoria(CategoriaDTO categoria)
         {
+            if (string.IsNullOrEmpty(categoria.Nombre))
+            {
+                return false;
+            }
             string query = $"INSERT INTO categorias VALUES (null,'{categoria.Nombre}')";
             return SqliteHandler.Exec(query);
         }
         public async Task<bool> EditCategoria(Categoria categoria)
         {
+            if (string.IsNullOrEmpty(categoria.Nombre)||categoria.Id<1)
+            {
+                return false;
+            }
             string query = $"UPDATE categorias SET nombre='{categoria.Nombre}' WHERE id={categoria.Id}";
             return SqliteHandler.Exec(query);
         }
         public async Task<bool> DeleteCategoria(string id)
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return false;
+            }
             string query = $"DELETE FROM categorias WHERE id={id}";
             return SqliteHandler.Exec(query);
         }
