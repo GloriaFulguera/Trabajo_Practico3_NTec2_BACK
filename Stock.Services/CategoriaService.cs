@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Stock.Models;
+using Stock.Models.DTO;
 using Stock.Services.Handlers;
 using Stock.Services.Repositories;
 using System;
@@ -15,10 +16,25 @@ namespace Stock.Services
         public async Task<List<Categoria>> GetCategorias()
         {
             string query = "SELECT * FROM categorias;";
-            string json=SqliteHandler.GetJson(query);
-            List<Categoria> list=JsonConvert.DeserializeObject<List<Categoria>>(json);
+            string json = SqliteHandler.GetJson(query);
+            List<Categoria> list = JsonConvert.DeserializeObject<List<Categoria>>(json);
 
             return list;
+        }
+        public async Task<bool> CreateCategoria(CategoriaDTO categoria)
+        {
+            string query = $"INSERT INTO categorias VALUES (null,'{categoria.Nombre}')";
+            return SqliteHandler.Exec(query);
+        }
+        public async Task<bool> EditCategoria(Categoria categoria)
+        {
+            string query = $"UPDATE categorias SET nombre='{categoria.Nombre}' WHERE id={categoria.Id}";
+            return SqliteHandler.Exec(query);
+        }
+        public async Task<bool> DeleteCategoria(string id)
+        {
+            string query = $"DELETE FROM categorias WHERE id={id}";
+            return SqliteHandler.Exec(query);
         }
     }
 }
