@@ -1,5 +1,4 @@
-﻿using Stock.Models;
-using Stock.Models.DTO;
+﻿using Stock.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +10,6 @@ namespace Stock.Services.Repositories
     public interface IMovimientoRepository
     {
         public Task<List<MovimientoDTO>> GetMovimientos();
-        public Task<bool> CreateMovimiento(Movimiento movimiento);
+        public Task<bool> CreateMovimiento(MovimientoCreateDTO movimiento);
     }
 }

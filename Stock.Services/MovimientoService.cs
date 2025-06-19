@@ -37,7 +37,7 @@ namespace Stock.Services
             }).ToList();
             return movimientos;
         }
-        public async Task<bool> CreateMovimiento(Movimiento movimiento)
+        public async Task<bool> CreateMovimiento(MovimientoCreateDTO movimiento)
         {
             string select = "SELECT id FROM productos WHERE id=" + movimiento.Producto_id;
             string existe = SqliteHandler.GetScalar(select);
