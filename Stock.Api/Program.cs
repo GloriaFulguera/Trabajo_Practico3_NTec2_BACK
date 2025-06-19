@@ -15,6 +15,7 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(builder => {
 
 SqliteHandler.ConnectionString = builder.Configuration.GetConnectionString("defaultConnection");
 builder.Services.AddSingleton<ICategoriaRepository, CategoriaService>();
+builder.Services.AddSingleton<IProductoRepository, ProductoService>();
 
 var app = builder.Build();
 app.UseSwagger();
