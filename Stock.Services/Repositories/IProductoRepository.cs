@@ -11,6 +11,7 @@ namespace Stock.Services.Repositories
     public interface IProductoRepository
     {
         public Task<List<Producto>> GetProductos();
+        public Task<List<Producto>> GetProductosPorCategoria(string id);
         public Task<bool> CreateProducto(Producto producto);
         public Task<bool> EditProducto(ProductoDTO producto);
         public Task<bool> DeleteProducto(string id);

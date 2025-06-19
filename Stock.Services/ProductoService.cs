@@ -21,6 +21,14 @@ namespace Stock.Services
             List<Producto> productos=JsonConvert.DeserializeObject<List<Producto>>(json);
             return productos;
         }
+        public async Task<List<Producto>> GetProductosPorCategoria(string id)
+        {
+            string query = "SELECT * FROM productos WHERE categoria_id="+id;
+            string json=SqliteHandler.GetJson(query);
+            
+            List<Producto> productos = JsonConvert.DeserializeObject<List<Producto>>(json);
+            return productos;
+        }
         public async Task<bool> CreateProducto(Producto prod)
         {
             string select = "SELECT id FROM categorias WHERE id=" + prod.Categoria_id;
@@ -36,7 +44,7 @@ namespace Stock.Services
         }
         public async Task<bool> EditProducto(ProductoDTO prod)
         {
-            string select = "SELECT id FROM categorias WHERE id=" + prod.Id;
+            string select = "SELECT id FROM productos WHERE id=" + prod.Id;
             string existe = SqliteHandler.GetScalar(select);
             if (string.IsNullOrEmpty(existe) || string.IsNullOrEmpty(prod.Stock) || string.IsNullOrEmpty(prod.Precio))
             {

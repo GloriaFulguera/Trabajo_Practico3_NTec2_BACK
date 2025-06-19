@@ -20,6 +20,11 @@ namespace Stock.Api.Controllers
         {
             return await Task.Run(()=>_productoService.GetProductos());
         }
+        [HttpGet("GetProductosPorCategoria")]
+        public async Task<List<Producto>> GetProductosPorCategoria(string id)
+        {
+            return await Task.Run(() => _productoService.GetProductosPorCategoria(id));
+        }
         [HttpPost("CreateProducto")]
         public async Task<bool> CreateProducto(Producto producto)
         {
