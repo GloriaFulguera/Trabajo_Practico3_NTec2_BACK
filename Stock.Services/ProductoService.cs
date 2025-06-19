@@ -23,12 +23,25 @@ namespace Stock.Services
         }
         public async Task<bool> CreateProducto(Producto prod)
         {
+            string select = "SELECT id FROM categorias WHERE id=" + prod.Categoria_id;
+            string existe = SqliteHandler.GetScalar(select);
+            if (string.IsNullOrEmpty(existe)||string.IsNullOrEmpty(prod.Nombre)||string.IsNullOrEmpty(prod.Stock)||string.IsNullOrEmpty(prod.Precio))
+            {
+                return false;
+            }
+
             string query = $"INSERT INTO productos(id,nombre,descripcion,stock,precio,categoria_id)" +
                 $"VALUES (null,'{prod.Nombre}','{prod.Descripcion}','{prod.Stock}','{prod.Precio}',{prod.Categoria_id})";
             return SqliteHandler.Exec(query);
         }
         public async Task<bool> EditProducto(ProductoDTO prod)
         {
+            string select = "SELECT id FROM categorias WHERE id=" + prod.Id;
+            string existe = SqliteHandler.GetScalar(select);
+            if (string.IsNullOrEmpty(existe) || string.IsNullOrEmpty(prod.Stock) || string.IsNullOrEmpty(prod.Precio))
+            {
+                return false;
+            }
             string query = $"UPDATE productos SET stock='{prod.Stock}',precio='{prod.Precio}' WHERE id={prod.Id}";
             return SqliteHandler.Exec(query);
         }

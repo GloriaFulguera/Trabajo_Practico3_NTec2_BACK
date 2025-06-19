@@ -32,8 +32,9 @@ namespace Stock.Services
         }
         public async Task<bool> EditCategoria(Categoria categoria)
         {
-            //TO DO: validar categoria con query
-            if (string.IsNullOrEmpty(categoria.Nombre)||categoria.Id<1)
+            string select="SELECT id FROM categorias WHERE id="+categoria.Id;
+            string existe=SqliteHandler.GetScalar(select);
+            if (string.IsNullOrEmpty(categoria.Nombre)||string.IsNullOrEmpty(existe))
             {
                 return false;
             }
