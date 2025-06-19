@@ -32,6 +32,7 @@ namespace Stock.Services
         }
         public async Task<bool> EditCategoria(Categoria categoria)
         {
+            //TO DO: validar categoria con query
             if (string.IsNullOrEmpty(categoria.Nombre)||categoria.Id<1)
             {
                 return false;
