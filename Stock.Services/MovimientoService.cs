@@ -39,15 +39,35 @@ namespace Stock.Services
         }
         public async Task<bool> CreateMovimiento(MovimientoCreateDTO movimiento)
         {
-            string select = "SELECT id FROM productos WHERE id=" + movimiento.Producto_id;
-            string existe = SqliteHandler.GetScalar(select);
-            if (string.IsNullOrEmpty(existe) || string.IsNullOrEmpty(movimiento.Tipo) || string.IsNullOrEmpty(movimiento.Cantidad)||string.IsNullOrEmpty(movimiento.Observacion))
+            int newStock=0;
+
+            if(Convert.ToInt32(movimiento.Cantidad)<1)
+                return false;
+            string query = "SELECT stock FROM productos WHERE id=" + movimiento.Producto_id;
+            if (string.IsNullOrEmpty(query) || string.IsNullOrEmpty(movimiento.Tipo) || string.IsNullOrEmpty(movimiento.Cantidad) || string.IsNullOrEmpty(movimiento.Observacion))
             {
                 return false;
             }
-            string query = $"INSERT INTO movimientos(id,producto_id,tipo,cantidad,fecha,observacion)" +
+
+            if (movimiento.Tipo.ToUpper() == "ENTRADA")
+            {
+                newStock=Convert.ToInt32(SqliteHandler.GetScalar(query))+Convert.ToInt32(movimiento.Cantidad);
+            }
+            else if (movimiento.Tipo.ToUpper() == "SALIDA")
+            {
+                if(Convert.ToInt32(SqliteHandler.GetScalar(query))< Convert.ToInt32(movimiento.Cantidad))
+                    return false;
+                else
+                    newStock = Convert.ToInt32(SqliteHandler.GetScalar(query)) - Convert.ToInt32(movimiento.Cantidad);
+            }
+            string update = $"UPDATE productos SET stock='{newStock}' WHERE id={movimiento.Producto_id}";
+
+            if (!SqliteHandler.Exec(update))
+                return false;
+
+            string insert = $"INSERT INTO movimientos(id,producto_id,tipo,cantidad,fecha,observacion)" +
                 $"VALUES (null,{movimiento.Producto_id},'{movimiento.Tipo}','{movimiento.Cantidad}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{movimiento.Observacion}')";
-            return SqliteHandler.Exec(query);
+            return SqliteHandler.Exec(insert);
         }
     }
 }
