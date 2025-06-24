@@ -17,6 +17,7 @@ SqliteHandler.ConnectionString = builder.Configuration.GetConnectionString("defa
 builder.Services.AddSingleton<ICategoriaRepository, CategoriaService>();
 builder.Services.AddSingleton<IProductoRepository, ProductoService>();
 builder.Services.AddSingleton<IMovimientoRepository, MovimientoService>();
+builder.Services.AddSingleton<ILoginRepository, LoginService>();
 
 var app = builder.Build();
 app.UseSwagger();
